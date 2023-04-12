@@ -28,6 +28,11 @@ RUN git clone https://github.com/flatpak/flatpak-builder-tools && \
     cd flatpak-builder-tools/node/ && \
     pipx install .
 
+# Add Flatpak remotes and install necessary runtimes and base apps
+RUN flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo && \
+    flatpak --no-sandbox install -y flathub org.freedesktop.Platform//22.08 org.freedesktop.Sdk//22.08 \
+                                    org.electronjs.Electron2.BaseApp/x86_64/22.08
+
 # use kitty terminal emulator
 ENV TERM=xterm-kitty
 
